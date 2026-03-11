@@ -24,21 +24,21 @@ node {
         }
     }
 
-    // Deploy environment production
-    stage('Deploy Prod') {
-    steps {
-        sshagent(['ssh-prod']) {
-            sh '''
-            mkdir -p ~/.ssh
-            ssh-keyscan -H 172.29.18.240 >> ~/.ssh/known_hosts
+    // Deploy ke production
+    stage("Deploy Prod") {
+        docker.image('agung3wi/alpine-rsync:1.1').inside('-u root') {
+            sshagent(['ssh-prod']) {
+                sh '''
+                mkdir -p ~/.ssh
+                ssh-keyscan -H 172.29.18.240 >> ~/.ssh/known_hosts
 
-            rsync -rav --delete ./ napoleon@172.29.18.240:/home/napoleon/prod.kelasdevops.xyz/ \
-            --exclude=.env \
-            --exclude=storage \
-            --exclude=.git
-            '''
+                rsync -rav --delete ./ napoleon@172.29.18.240:/home/napoleon/prod.kelasdevops.xyz/ \
+                --exclude=.env \
+                --exclude=storage \
+                --exclude=.git
+                '''
+            }
         }
     }
-}
 
 }
