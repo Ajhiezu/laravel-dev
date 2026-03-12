@@ -1,0 +1,16 @@
+---
+- name: Create development and production hosts
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Add dev host
+      lineinfile:
+        path: /etc/hosts
+        line: "192.168.1.10 dev.kelasdevops.xyz"
+        state: present
+
+    - name: Add prod host
+      lineinfile:
+        path: /etc/hosts
+        line: "192.168.1.20 prod.kelasdevops.xyz"
+        state: present

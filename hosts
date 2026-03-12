@@ -1,0 +1,5 @@
+[development]
+dev-server ansible_host=172.29.18.240 ansible_user=napoleon
+
+[production]
+prod-server ansible_host=172.29.18.240 ansible_user=napoleon
